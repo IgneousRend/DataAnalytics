@@ -1,16 +1,19 @@
 from collections import Counter
 from itertools import combinations
 import pickle as cp
-#Agnihotra Bhattacharya
+# Agnihotra Bhattacharya
 
 
 def input_transactions():
     trans_list = []
+    max_len = -1
     for trans in range(n):
         x = list(map(int, input("Enter items in the transaction (space-separated) >> ").strip().split()))
-        transactions.append(x)
-    cp.dump(transactions, open("save.p", "wb"))
-    return trans_list
+        trans_list.append(x)
+        if len(x) > max_len:
+            max_len = len(x)
+    cp.dump(trans_list, open("save.p", "wb"))
+    return trans_list, max_len
 
 
 def load_transactions():
@@ -44,4 +47,4 @@ n = int(input("Number of transactions >> "))
 min_support = int(input("Minimum support >> "))
 transactions, max_trans_len = load_transactions()
 final_set = apriori(transactions, max_trans_len, min_support)
-print(final_set)
+print("Frequent Items: ", final_set)
